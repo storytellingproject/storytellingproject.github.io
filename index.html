@@ -1,0 +1,392 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Who Controls The Story?</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@400;600;900&family=IM+Fell+English:ital@0;1&family=Fredoka+One&family=Nunito:wght@400;600;700;800&family=Playfair+Display:ital,wght@0,400;0,600;0,700;1,400;1,600;1,700&display=swap" rel="stylesheet">
+
+<link rel="stylesheet" href="styles.css">
+</head>
+<body class="tlou-world">
+
+<!-- CURSOR -->
+<div class="c-dot" id="cd"></div>
+<div class="c-ring" id="cr"></div>
+
+<!-- PROGRESS LINE -->
+<div id="progLine"></div>
+
+<!-- TOP BAR -->
+<div id="topBar">
+  <div class="brand" id="brand" onclick="go(0)">Home</div>
+  <div class="world-pills">
+    <button class="wpill on" id="ptlou" onclick="jumpWorld('tlou')">The Last of Us</button>
+    <button class="wpill" id="pmc" onclick="jumpWorld('mc')">Minecraft</button>
+  </div>
+</div>
+
+<!-- CHAPTER TAG -->
+<div id="chapTag">Gateway</div>
+
+<!-- AUDIO -->
+<button id="audioBtn" class="off" onclick="toggleAudio()" title="Toggle page audio">🔇</button>
+
+<!-- KEYBOARD HINT -->
+<div id="kbHint"><kbd>←</kbd><kbd>→</kbd></div>
+
+<!-- WIPE OVERLAY -->
+<div id="wipeOverlay">
+  <div id="wipeFill"></div>
+  <div id="wipeMsg">Crossing worlds…</div>
+</div>
+
+<!-- ══════════════════════════════════════════════════════════
+     SLIDES
+══════════════════════════════════════════════════════════ -->
+<div id="show">
+
+  <!-- ▌ S0 — HERO -->
+  <div class="slide bars" id="s0" data-i="0" data-w="tlou" data-ch="Home">
+    <div class="vbg"><video autoplay loop playsinline src="videos/combined.mp4"></video></div>
+    <div class="ov ov-tlou"></div>
+    <div class="grain"></div>
+    <div class="vig"></div>
+    <audio id="a0" src="audio/hero.mp3" preload="none"></audio>
+    <div class="sc">
+      <div class="eyebrow" style="margin-left: 12px;">WHO CONTROLS THE STORY?</div>
+      <div class="bgrp" style="margin-left: 136px;">
+        <button class="btn btn-hi" onclick="go(1)"><span>Follow a controlled story</span></button>
+        <button class="btn" onclick="jumpWorld('mc')"><span>Create your own path</span></button>
+      </div>
+        <p class="warning" style="bottom: 40px;">
+        ⚠️ This website contains imagery and themes from The Last of Us.
+        Some content may include depictions of violence, infected creatures, death, and emotional distress.
+        Viewer discretion is advised.
+        </p>
+    </div>
+  </div>
+
+  <!-- ▌ S1 — TLOU: WHAT IS IT -->
+  <div class="slide bars" id="s1" data-i="1" data-w="tlou" data-ch="Control">
+    <div class="vbg"><video autoplay loop playsinline src="videos/tlou-intro.mp4"></video></div>
+    <div class="ov ov-tlou"></div>
+    <div class="grain"></div>
+    <div class="vig"></div>
+    <audio id="a1" src="audio/tlou-intro.mp3" preload="none"></audio>
+    <div class="sc">
+      <div class="lbl">CHAPTER I CONTROL</div>
+      <h2 class="h1">A World Already<br><em> Written</em></h2>
+      <p class="body-p">
+        The world is already shaped before you arrive. Its events, its 
+        characters, and its direction exist independently of your presence. 
+        You step into something complete, something that does not wait for
+        you to begin. The story moves forward as it was always meant to, whether 
+        you follow it or not.
+      </p>
+      <div class="bgrp">
+        <button class="btn btn-hi" onclick="go(2)"><span>Continue</span><span class="arr">→</span></button>
+        <button class="btn btn-dim" onclick="go(0)"><span>← Back</span></button>
+      </div>
+    </div>
+  </div>
+
+  <!-- ▌ S2 — TLOU: STORY -->
+  <div class="slide bars" id="s2" data-i="2" data-w="tlou" data-ch="Path">
+    <div class="vbg"><video autoplay loop playsinline src="videos/tlou-story.mp4"></video></div>
+    <div class="ov ov-tlou"></div>
+    <div class="grain"></div>
+    <div class="vig"></div>
+    <audio id="a2" src="audio/tlou-story.mp3" preload="none"></audio>
+    <div class="sc">
+      <div class="lbl">CHAPTER II PATH</div>
+      <h2 class="h1">Following a Set<br><em>Path</em></h2>
+      <div class="qblock">
+        There is only one path, and it does not change for you.
+      </div>
+      <p class="body-p">
+       You move forward, but never freely. The road is already laid out, guiding you through each moment with quiet certainty. There are no wrong turns, only the illusion of choice. You are not discovering the story. You are following it, exactly as it was designed.
+      </p>
+      <div class="bgrp">
+        <button class="btn btn-hi" onclick="go(3)"><span>Continue</span><span class="arr">→</span></button>
+        <button class="btn btn-dim" onclick="go(1)"><span>← Back</span></button>
+      </div>
+    </div>
+  </div>
+
+  <!-- ▌ S3 — TLOU: GAMEPLAY -->
+  <div class="slide bars" id="s3" data-i="3" data-w="tlou" data-ch="Emotion">
+    <div class="vbg"><video autoplay loop playsinline src="videos/tlou-gameplay.mp4"></video></div>
+    <div class="ov ov-tlou"></div>
+    <div class="grain"></div>
+    <div class="vig"></div>
+    <audio id="a3" src="audio/tlou-gameplay.mp3" preload="none"></audio>
+    <div class="sc">
+      <div class="lbl">CHAPTER III EMOTION</div>
+      <h2 class="h1">Emotion By<br><em>Design</em></h2>
+      <p class="body-p">
+        Emotion in this story is never accidental. Each pause, each silence, and each moment of intensity is carefully arranged to guide your experience. You are not choosing how to feel.
+      </p>
+      <div class="stats">
+        <div class="srow"><span class="slbl">Author Control</span><div class="strack"><div class="sfill" style="width:98%"></div></div></div>
+        <div class="srow"><span class="slbl">Player Freedom</span><div class="strack"><div class="sfill" style="width:8%"></div></div></div>
+        <div class="srow"><span class="slbl">Narrative Built</span><div class="strack"><div class="sfill" style="width:98%"></div></div></div>
+        <div class="srow"><span class="slbl">Outcome Choice</span><div class="strack"><div class="sfill" style="width:5%"></div></div></div>
+      </div>
+      <div class="bgrp">
+        <button class="btn btn-hi" onclick="go(4)"><span>Continue</span><span class="arr">→</span></button>
+        <button class="btn btn-dim" onclick="go(2)"><span>← Back</span></button>
+      </div>
+    </div>
+  </div>
+
+  <!-- ▌ S4 — TLOU: VISUALS & EMOTIONS -->
+  <div class="slide bars" id="s4" data-i="4" data-w="tlou" data-ch="Conflict">
+    <div class="vbg"><video autoplay loop playsinline src="videos/tlou-visuals.mp4"></video></div>
+    <div class="ov ov-tlou"></div>
+    <div class="grain"></div>
+    <div class="vig"></div>
+    <audio id="a4" src="audio/tlou-visuals.mp3" preload="none"></audio>
+    <div class="sc">
+      <div class="lbl">CHAPTER IV CONFLICT</div>
+      <h2 class="h1">Danger By<br><em>Design</em></h2>
+      <p class="body-p">
+        Conflict in this world is carefully controlled. Each encounter appears at the right moment, pushing the story forward through pressure and survival. You do not choose when danger arrives.
+      </p>
+      <p class="body-p">
+        The narrative decides, placing obstacles in your path with precision and intent.
+      </p>
+      <div class="bgrp">
+        <button class="btn btn-hi" onclick="go(5)"><span>Continue</span><span class="arr">→</span></button>
+        <button class="btn btn-dim" onclick="go(3)"><span>← Back</span></button>
+      </div>
+    </div>
+  </div>
+
+  <!-- ▌ S5 — TLOU: SUMMARY -->
+  <div class="slide bars" id="s5" data-i="5" data-w="tlou" data-ch="Ending">
+    <div class="vbg"><video autoplay loop playsinline src="videos/tlou-summary.mp4"></video></div>
+    <div class="ov ov-tlou"></div>
+    <div class="grain"></div>
+    <div class="vig"></div>
+    <audio id="a5" src="audio/tlou-summary.mp3" preload="none"></audio>
+    <div class="sc">
+      <div class="lbl">CHAPTER V ENDING</div>
+      <h2 class="h1">An Ending Already<br><em>Decided</em></h2>
+      <p class="body-p">
+        The story reaches its conclusion as it was always meant to. No matter how you moved through it, this ending was waiting. It does not change. It does not adapt.
+      </p>
+      <div class="stats">
+        <div class="srow"><span class="slbl">Story depth</span><div class="strack"><div class="sfill" style="width:96%"></div></div></div>
+        <div class="srow"><span class="slbl">Visual quality</span><div class="strack"><div class="sfill" style="width:98%"></div></div></div>
+        <div class="srow"><span class="slbl">Replay value</span><div class="strack"><div class="sfill" style="width:20%"></div></div></div>
+      </div>
+      <div class="bgrp">
+        <button class="btn btn-hi" onclick="go(6)"><span>Continue</span><span class="arr">→</span></button>
+        <button class="btn btn-dim" onclick="go(4)"><span>← Back</span></button>
+      </div>
+    </div>
+  </div>
+
+  <!-- ▌ S6 — WORLD DIVIDER -->
+  <div class="slide" id="s6" data-i="6" data-w="divider" data-ch="Crossing Worlds">
+    <div class="vbg"><video autoplay loop playsinline src="videos/transition.mp4"></video></div>
+    <div class="ov ov-tlou"></div>
+    <div class="grain"></div>
+    <div class="vig"></div>
+    <audio id="a6" src="audio/transition.mp3" preload="none"></audio>
+    <div class="sc ctr" style="max-width:1900px">
+      <div class="div-wrap">
+        <p class="div-p" style="margin-bottom: 0px;">But what happens when nothing is written?</p>
+        <div class="bgrp" style="justify-content:center">
+          <button class="btn btn-hi" onclick="switchMC()"><span>Enter Minecraft</span></button>
+          <button class="btn btn-dim" onclick="go(1)"><span>← Return to TLOU I</span></button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ▌ S7 — MC: WHAT IS IT -->
+  <div class="slide" id="s7" data-i="7" data-w="mc" data-ch="Freedom">
+    <div class="vbg"><video autoplay loop playsinline src="videos/mc-intro.mp4"></video></div>
+    <div class="ov ov-mc"></div>
+    <div class="mc-pts" id="mcp7"></div>
+    <div class="vig"></div>
+    <audio id="a7" src="audio/mc-intro.mp3" preload="none"></audio>
+    <div class="sc">
+      <div class="lbl">CHAPTER I FREEDOM</div>
+      <h2 class="h1">Exploring Without a<br><em>Structure</em></h2>
+      <p class="body-p">
+        You enter a world that has no plan and no expectations. There are no
+        events waiting for you and no story prepared in advance. Nothing begins
+        until you decide to move. The world exists as an open space, but it does
+        not guide you or tell you what to do.
+      </p>
+      <div class="bgrp">
+        <button class="btn btn-hi" onclick="go(8)"><span>Next</span><span class="arr">→</span></button>
+        <button class="btn btn-dim" onclick="go(6)"><span>← Back</span></button>
+      </div>
+    </div>
+  </div>
+
+  <!-- ▌ S8 — MC: YOUR STORY -->
+  <div class="slide" id="s8" data-i="8" data-w="mc" data-ch="Choice">
+    <div class="vbg"><video autoplay loop playsinline src="videos/mc-story.mp4"></video></div>
+    <div class="ov ov-mc"></div>
+    <div class="mc-pts" id="mcp8"></div>
+    <div class="vig"></div>
+    <audio id="a8" src="audio/mc-story.mp3" preload="none"></audio>
+    <div class="sc">
+      <div class="lbl">CHAPTER II CHOICE</div>
+      <h2 class="h1">Choosing Your<br><em>Own Direction</em></h2>
+      <p class="body-p">
+        There is no fixed direction to follow and no correct way to begin. You decide
+        where to go, what to explore, and what matters. Every choice leads somewhere
+        different, and each decision shapes the experience in its own way. The story begins
+        the moment you act.
+      </p>
+      <p class="body-p">Your story is different every single time you play.</p>
+      <div class="bgrp">
+        <button class="btn btn-hi" onclick="go(9)"><span>Next</span><span class="arr">→</span></button>
+        <button class="btn btn-dim" onclick="go(7)"><span>← Back</span></button>
+      </div>
+    </div>
+  </div>
+
+  <!-- ▌ S9 — MC: GAMEPLAY -->
+  <div class="slide" id="s9" data-i="9" data-w="mc" data-ch="Creation">
+    <div class="vbg"><video autoplay loop playsinline src="videos/mc-gameplay.mp4"></video></div>
+    <div class="ov ov-mc"></div>
+    <div class="mc-pts" id="mcp9"></div>
+    <div class="vig"></div>
+    <audio id="a9" src="audio/mc-gameplay.mp3" preload="none"></audio>
+    <div class="sc">
+      <div class="lbl">CHAPTER III CREATION</div>
+      <h2 class="h1">Creating Meaning Through<br><em>Action</em></h2>
+      <p class="body-p">
+        Nothing in this world carries meaning on its own. What you build,
+        what you explore, and what you choose to focus on becomes the story
+        itself.
+      </p>
+      <div class="mcgrid">
+        <div class="mcblk"><span class="bi">⛏️</span><span class="bn">Mining</span></div>
+        <div class="mcblk"><span class="bi">🏗️</span><span class="bn">Building</span></div>
+        <div class="mcblk"><span class="bi">🌾</span><span class="bn">Farming</span></div>
+        <div class="mcblk"><span class="bi">⚔️</span><span class="bn">Combat</span></div>
+        <div class="mcblk"><span class="bi">🗺️</span><span class="bn">Exploring</span></div>
+        <div class="mcblk"><span class="bi">🧪</span><span class="bn">Crafting</span></div>
+      </div>
+      <div class="bgrp">
+        <button class="btn btn-hi" onclick="go(10)"><span>Next</span><span class="arr">→</span></button>
+        <button class="btn btn-dim" onclick="go(8)"><span>← Back</span></button>
+      </div>
+    </div>
+  </div>
+
+  <!-- ▌ S10 — MC: CREATIVITY -->
+  <div class="slide" id="s10" data-i="10" data-w="mc" data-ch="Exploration">
+    <div class="vbg"><video autoplay loop playsinline src="videos/mc-creativity.mp4"></video></div>
+    <div class="ov ov-mc"></div>
+    <div class="mc-pts" id="mcp10"></div>
+    <div class="vig"></div>
+    <audio id="a10" src="audio/mc-creativity.mp3" preload="none"></audio>
+    <div class="sc">
+      <div class="lbl">CHAPTER IV EXPLORATION</div>
+      <h2 class="h1">Exploring Without a<br><em>Structure</em></h2>
+      <p class="body-p">
+        There is no required order to events and no sequence that must be followed.
+        You move through the world freely, discovering moments based on where you 
+        choose to go. What you experience is shaped by exploration rather than design.
+      </p>
+      <p class="body-p">No two Minecraft worlds are ever the same.</p>
+      <div class="bgrp">
+        <button class="btn btn-hi" onclick="go(11)"><span>Next</span><span class="arr">→</span></button>
+        <button class="btn btn-dim" onclick="go(9)"><span>← Back</span></button>
+      </div>
+    </div>
+  </div>
+
+  <!-- ▌ S11 — MC: SUMMARY -->
+  <div class="slide" id="s11" data-i="11" data-w="mc" data-ch="Continuation">
+    <div class="vbg"><video autoplay loop playsinline src="videos/mc-summary.mp4"></video></div>
+    <div class="ov ov-mc"></div>
+    <div class="mc-pts" id="mcp11"></div>
+    <div class="vig"></div>
+    <audio id="a11" src="audio/mc-summary.mp3" preload="none"></audio>
+    <div class="sc">
+      <div class="lbl">CHAPTER V CONTINUATION</div>
+      <h2 class="h1">A Story Without<br><em>an Ending</em></h2>
+      <p class="body-p">
+        There is no final scene waiting and no fixed conclusion
+        that brings everything together.The story continues as 
+        long as you remain within the world, shaped entirely by 
+        your actions and decisions.
+      </p>
+      <div class="stats">
+        <div class="srow"><span class="slbl">Author Control</span><div class="strack"><div class="sfill" style="width:98%"></div></div></div>
+        <div class="srow"><span class="slbl">Player Freedom</span><div class="strack"><div class="sfill" style="width:98%"></div></div></div>
+        <div class="srow"><span class="slbl">Narative Built</span><div class="strack"><div class="sfill" style="width:5%"></div></div></div>
+        <div class="srow"><span class="slbl">Outcome Choice</span><div class="strack"><div class="sfill" style="width:98%"></div></div></div>
+      </div>
+      <div class="bgrp">
+        <button class="btn btn-hi" onclick="go(12)"><span>Cast your vote</span><span class="arr">→</span></button>
+        <button class="btn btn-dim" onclick="go(10)"><span>← Back</span></button>
+      </div>
+    </div>
+  </div>
+
+  <!-- ▌ S12 — POLL -->
+  <div class="slide" id="s12" data-i="12" data-w="mc" data-ch="Your Vote">
+    <div class="vbg"><video autoplay loop playsinline src="videos/poll-ambient.mp4"></video></div>
+    <div class="ov ov-mc"></div>
+    <div class="mc-pts" id="mcp12"></div>
+    <div class="vig"></div>
+    <audio id="a12" src="audio/poll.mp3" preload="none"></audio>
+    <div class="sc ctr" style="max-width:1820px; align-items:center; text-align:center">
+      <div class="lbl" style="justify-content:center">FINAL REFLECTION</div>
+      <h2 class="h1" style="text-align:center">How Do You Want To Experience A Story?</h2>
+      <p class="body-p" style="text-align:center;max-width:980px;margin:0 auto">
+        You have explored two different ways of experiencing a story. One guides you through a fixed narrative with control and precision. The other gives you freedom to shape meaning for yourself.
+      </p>
+
+      <div class="pgrid" id="pollGrid">
+        <div class="pch" onclick="castVote('tlou')">
+          <!-- <span class="pi">🌿</span> -->
+          <span class="pn">The Last of Us</span>
+          <span class="pd">Authored, cinematic, and emotionally controlled. A fixed path where meaning is carefully shaped by the story itself.</span>
+        </div>
+        <div class="pch" onclick="castVote('mc')">
+          <!-- <span class="pi">⛏️</span> -->
+          <span class="pn">Minecraft</span>
+          <span class="pd">Open, interactive, and shaped by player action. A flexible world where meaning emerges through choice and exploration.</span>
+        </div>
+      </div>
+
+      <div class="pres" id="pollRes">
+        <p class="pthanks" id="pthanks">Thanks for voting!</p>
+        <div class="prrow">
+          <div class="prlbl"><span>The Last of Us</span><span class="prpct" id="tpct">0%</span></div>
+          <div class="prtrack"><div class="prfill tlou-c" id="tbar"></div></div>
+        </div>
+        <div class="prrow">
+          <div class="prlbl" style="color:var(--accent2)"><span>Minecraft</span><span class="prpct" id="mpct">0%</span></div>
+          <div class="prtrack"><div class="prfill mc-c" id="mbar"></div></div>
+        </div>
+        <p class="pcount" id="pvote"></p>
+        <div class="bgrp" style="justify-content:center;margin-top:8px">
+          <button class="btn btn-dim" onclick="go(0)"><span>← Start again</span></button>
+          <button class="btn" id="reExploreBtn" onclick="jumpWorld('tlou')"><span id="reExploreLabel">Re-explore The Last of Us</span></button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+</div><!-- /show -->
+
+<!-- DOT NAV -->
+<div id="dotNav"></div>
+
+<script src="script.js"></script>
+</body>
+</html>
