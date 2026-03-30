@@ -390,4 +390,118 @@ window.addEventListener('load',()=>{
   seedParticles();
   /* seed votes */
   try{ if(!localStorage.getItem(VKEY)) localStorage.setItem(VKEY,JSON.stringify({tlou:4,mc:6})); }catch{}
+  /* show onboarding tips (skip if already seen) */
+  initTips();
 });
+
+/* ════════════════════════════════════════════════════════════
+   ONBOARDING TIPS
+════════════════════════════════════════════════════════════ */
+const TIPS_KEY = 'two_worlds_tips_seen_v1';
+let tipCur = 0;
+const TIP_TOTAL = 5;
+
+function initTips(){
+  /* uncomment next line to always show during dev: */
+  const ov = document.getElementById('tipsOverlay');
+  ov.style.display = 'flex';
+  /* small delay so page renders first */
+  requestAnimationFrame(()=>{
+    requestAnimationFrame(()=>{ ov.classList.add('show'); });
+  });
+  renderTipStep(0);
+  /* make step dots clickable */
+  document.querySelectorAll('.tsd').forEach(d=>{
+    d.addEventListener('click', ()=> renderTipStep(+d.dataset.step));
+  });
+  /* keyboard navigation inside the overlay */
+  document.addEventListener('keydown', onTipKey);
+}
+
+function onTipKey(e){
+  const ov = document.getElementById('tipsOverlay');
+  if(!ov.classList.contains('show')) return;
+  if(e.key==='Escape'){ dismissTips(); return; }
+  if(e.key==='ArrowRight'||e.key==='ArrowDown'){ e.stopImmediatePropagation(); tipStep(1); }
+  if(e.key==='ArrowLeft' ||e.key==='ArrowUp')  { e.stopImmediatePropagation(); tipStep(-1); }
+}
+
+function tipStep(dir){
+  const next = tipCur + dir;
+  if(next < 0){ dismissTips(); return; }
+  if(next >= TIP_TOTAL){ dismissTips(); return; }
+  renderTipStep(next);
+}
+
+function renderTipStep(idx){
+  tipCur = idx;
+
+  /* swap visible step */
+  document.querySelectorAll('.tip-step').forEach((s,i)=>{
+    s.classList.toggle('on', i===idx);
+  });
+  /* sync dot indicators */
+  document.querySelectorAll('.tsd').forEach((d,i)=>{
+    d.classList.toggle('on', i===idx);
+  });
+
+  /* Prev button visibility */
+  const prev = document.getElementById('tipsPrev');
+  prev.classList.toggle('hidden', idx===0);
+
+  /* Next button label — last step becomes "Got it" */
+  const next = document.getElementById('tipsNext');
+  next.textContent = idx === TIP_TOTAL-1 ? 'Got it ✓' : 'Next →';
+
+  /* Spotlight positions — point at real UI elements */
+  positionSpotlights(idx);
+}
+
+function positionSpotlights(idx){
+  /* Map step index → element to spotlight */
+  const targets = {
+    1: document.getElementById('kbHint'),
+    2: document.getElementById('dotNav'),
+    3: document.getElementById('topBar'),
+    4: document.getElementById('audioBtn')
+  };
+  const spotIds = {1:'spot-keys',2:'spot-dots',3:'spot-topbar',4:'spot-audio'};
+
+  /* reset all */
+  document.querySelectorAll('.tip-spotlight').forEach(s=>{
+    s.style.display='none';
+    s.style.cssText='display:none';
+  });
+
+  const el = targets[idx];
+  const sid = spotIds[idx];
+  if(!el||!sid) return;
+
+  const sp = document.getElementById(sid);
+  if(!sp) return;
+
+  const r = el.getBoundingClientRect();
+  const pad = 10;
+  sp.style.cssText = `
+    display: block;
+    left:   ${r.left   - pad}px;
+    top:    ${r.top    - pad}px;
+    width:  ${r.width  + pad*2}px;
+    height: ${r.height + pad*2}px;
+    border-radius: ${idx===4 ? '50%' : '8px'};
+    position: fixed;
+    z-index: 9500;
+    border: 2px solid var(--accent);
+    box-shadow: 0 0 0 4px var(--glow), 0 0 24px var(--glow-bright);
+    pointer-events: none;
+    animation: spot-pulse 1.4s ease-in-out infinite;
+  `;
+}
+
+function dismissTips(){
+  const ov = document.getElementById('tipsOverlay');
+  ov.classList.remove('show');
+  ov.addEventListener('transitionend', ()=>{ ov.style.display='none'; }, {once:true});
+  document.removeEventListener('keydown', onTipKey);
+  try{ } catch{}
+}
