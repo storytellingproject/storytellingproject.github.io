@@ -389,7 +389,7 @@ window.addEventListener('load',()=>{
   syncVideoAudio();
   seedParticles();
   /* seed votes */
-  try{ if(!localStorage.getItem(VKEY)) localStorage.setItem(VKEY,JSON.stringify({tlou:4,mc:6})); }catch{}
+  try{ if(!localStorage.getItem(VKEY)) localStorage.setItem(VKEY,JSON.stringify({tlou:0,mc:0})); }catch{}
   /* show onboarding tips (skip if already seen) */
   initTips();
 });
